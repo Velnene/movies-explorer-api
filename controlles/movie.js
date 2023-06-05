@@ -1,7 +1,7 @@
 const Movie = require('../models/user');
 // const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
-const ConflictError = require('../errors/ConflictError');
+const ForbiddenError = require('../errors/ForbiddenError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const getCards = (req, res, next) => {
@@ -31,7 +31,29 @@ const createMovie = (req, res, next) => {
     });
 };
 
+const deleteMovie = (req, res, next) => {
+  const { moviedId } = req.params;
+  Movie.findById(moviedId)
+    .then((movie) => {
+      if (!movie) {
+        throw new NotFoundError('Невалидный id карточки');
+      } else if (movie.owner.equals(req.user._id)) {
+        Movie.findByIdAndRemove(moviedId)
+          .then(() => {
+            res.status(200).send({ message: 'Карточка удалена' });
+          })
+          .catch((err) => {
+            next(err);
+          });
+      } else {
+        throw new ForbiddenError('Можно удалять только свои карточки');
+      }
+    })
+    .catch(next);
+};
+
 module.exports = {
   getCards,
   createMovie,
+  deleteMovie,
 };
