@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 // const NotFoundError = require('./errors/NotFoundError');
 // const { login, createUser } = require('./controllers/user');
 // const { loginValidate, createValidate } = require('./errors/userError');
-// const { userRouter, cardRouter } = require('./routes');
+const { userRouter } = require('./routes');
 
 const app = express();
 // app.use(cors());
@@ -38,7 +38,7 @@ app.use(express.json());
 
 // app.post('/signin', loginValidate, login);
 // app.post('/signup', createValidate, createUser);
-// app.use(userRouter);
+app.use(userRouter);
 // app.use(cardRouter);
 
 // app.use('*', (req, res, next) => {

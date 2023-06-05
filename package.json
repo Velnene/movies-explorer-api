@@ -9,5 +9,8 @@
     "lint": "npx eslint ."
   },
   "author": "Viktor5211",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "validator": "^13.9.0"
+  }
 }
