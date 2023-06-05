@@ -37,7 +37,6 @@ app.use(express.json());
 // });
 
 // app.post('/signin', loginValidate, login);
-// app.post('/signup', createValidate, createUser);
 app.use(userRouter);
 // app.use(cardRouter);
 

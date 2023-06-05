@@ -11,6 +11,7 @@
   "author": "Viktor5211",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "validator": "^13.9.0"
   }
 }
