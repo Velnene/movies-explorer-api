@@ -5,7 +5,7 @@ const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
-// const { generateToken } = require('../utils/token');
+const { generateToken } = require('../utils/token');
 const {
   OK,
   CREATED,
@@ -65,8 +65,19 @@ const updateUser = (req, res, next) => {
     });
 };
 
+const login = (req, res, next) => {
+  const { email, password } = req.body;
+  User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = generateToken({ _id: user.id });
+      res.status(OK).send({ token });
+    })
+    .catch(next);
+};
+
 module.exports = {
   getCurrentUser,
   createUser,
   updateUser,
+  login,
 };

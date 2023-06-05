@@ -9,5 +9,4 @@ const {
 
 userRouter.get('/users/me', getCurrentUser);
 userRouter.patch('/users/me', updateUser);
-userRouter.post('/signup', createUser);
 module.exports = userRouter;

@@ -7,9 +7,9 @@ const mongoose = require('mongoose');
 // const errorHandler = require('./middlewares/errorHandler');
 // const { requestLogger, errorLogger } = require('./middlewares/logger');
 // const NotFoundError = require('./errors/NotFoundError');
-// const { login, createUser } = require('./controllers/user');
+const { login, createUser } = require('./controlles/user');
 // const { loginValidate, createValidate } = require('./errors/userError');
-const { userRouter } = require('./routes');
+const { userRouter, movieRouter } = require('./routes');
 
 const app = express();
 // app.use(cors());
@@ -37,7 +37,10 @@ app.use(express.json());
 // });
 
 // app.post('/signin', loginValidate, login);
+app.post('/signup', createUser);
+
 app.use(userRouter);
+app.use(movieRouter);
 // app.use(cardRouter);
 
 // app.use('*', (req, res, next) => {

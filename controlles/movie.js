@@ -1,10 +1,9 @@
 const Movie = require('../models/user');
-// const NotFoundError = require('../errors/NotFoundError');
+
 const BadRequestError = require('../errors/BadRequestError');
 const ForbiddenError = require('../errors/ForbiddenError');
-const UnauthorizedError = require('../errors/UnauthorizedError');
 
-const getCards = (req, res, next) => {
+const getMovies = (req, res, next) => {
   Movie.find()
     .populate(['owner', 'likes'])
     .sort({ createdAt: -1 })
@@ -53,7 +52,7 @@ const deleteMovie = (req, res, next) => {
 };
 
 module.exports = {
-  getCards,
+  getMovies,
   createMovie,
   deleteMovie,
 };
