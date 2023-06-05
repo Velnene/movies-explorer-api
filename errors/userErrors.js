@@ -1,7 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 
 const passValid = /^[!-z]{8,30}$/;
-const urlValid = /^https?:\/\/(www.)?[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*#?$/;
 
 const loginValidate = celebrate({
   body: Joi.object().keys({

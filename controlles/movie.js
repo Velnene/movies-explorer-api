@@ -2,6 +2,12 @@ const Movie = require('../models/user');
 
 const BadRequestError = require('../errors/BadRequestError');
 const ForbiddenError = require('../errors/ForbiddenError');
+const NotFoundError = require('../errors/NotFoundError');
+
+const {
+  OK,
+  CREATED,
+} = require('../respons/responsStatus');
 
 const getMovies = (req, res, next) => {
   Movie.find()
@@ -16,10 +22,34 @@ const getMovies = (req, res, next) => {
 const createMovie = (req, res, next) => {
   const owner = req.user._id;
   const {
-    country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId } = req.body;
-  Movie.create({ country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId, owner })
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId,
+  } = req.body;
+  Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    nameRU,
+    nameEN,
+    thumbnail,
+    movieId,
+    owner,
+  })
     .then((movie) => {
-      card.populate(['owner'])
+      movie.populate(['owner'])
         .then(() => res.status(CREATED).send(movie));
     })
     .catch((e) => {

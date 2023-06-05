@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
-// const NotFoundError = require('../errors/NotFoundError');
+
 const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
@@ -39,9 +39,7 @@ const createUser = (req, res, next) => {
 };
 
 const getCurrentUser = (req, res, next) => {
-  console.log(req.params)
   const userId = req.user._id;
-  console.log(req)
   User.findById(userId)
     .then((user) => res.status(OK).send(user))
     .catch((e) => {
