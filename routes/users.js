@@ -4,7 +4,6 @@ const auth = require('../middlewares/auth');
 const userRouter = express.Router();
 const {
   getCurrentUser,
-  createUser,
   updateUser,
 } = require('../controlles/user');
 

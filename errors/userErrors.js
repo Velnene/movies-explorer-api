@@ -35,13 +35,6 @@ const createValidate = celebrate({
         'string.min': 'Имя должно быть не короче 2 симв.',
         'string.max': 'Имя должно быть не длиннее 30 симв.',
       }),
-    about: Joi.string().min(2).max(30)
-      .messages({
-        'string.min': 'Текст о себе должен быть не короче 2 симв.',
-        'string.max': 'Текст о себе должен быть не длиннее 30 симв.',
-      }),
-    avatar: Joi.string().pattern(urlValid)
-      .message('Введите URL аватара'),
   }),
 });
 
@@ -52,13 +45,11 @@ const updateValidate = celebrate({
         'string.min': 'Имя должно быть не короче 2 симв.',
         'string.max': 'Имя должно быть не длиннее 30 симв.',
       }),
-    about: Joi.string().min(2).max(30)
+    email: Joi.string().required().email()
       .messages({
-        'string.min': 'Текст о себе должен быть не короче 2 симв.',
-        'string.max': 'Текст о себе должен быть не длиннее 30 симв.',
+        'string.empty': 'Поле email должно быть заполнено',
+        'string.email': 'Поле должно быть валидным email',
       }),
-    avatar: Joi.string().pattern(urlValid)
-      .message('Введите URL аватара'),
   }),
 });
 
