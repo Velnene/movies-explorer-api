@@ -47,11 +47,13 @@ const movieSchema = new mongoose.Schema({
     },
   },
   owner: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
+    // type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   movieId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
+    // type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   nameRU: {

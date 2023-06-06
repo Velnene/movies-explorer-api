@@ -7,9 +7,7 @@ const { errors } = require('celebrate');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/NotFoundError');
-const { login, createUser } = require('./controlles/user');
-const { loginValidate, createValidate } = require('./errors/userErrors');
-const { userRouter, movieRouter } = require('./routes');
+const { route } = require('./routes');
 
 const app = express();
 app.use(cors());
@@ -36,10 +34,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', loginValidate, login);
-app.post('/signup', createValidate, createUser);
-app.use(userRouter);
-app.use(movieRouter);
+app.use(route);
 
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Маршрут не найден'));

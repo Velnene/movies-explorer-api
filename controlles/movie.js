@@ -1,4 +1,4 @@
-const Movie = require('../models/user');
+const Movie = require('../models/movie');
 
 const BadRequestError = require('../errors/BadRequestError');
 const ForbiddenError = require('../errors/ForbiddenError');
@@ -11,7 +11,6 @@ const {
 
 const getMovies = (req, res, next) => {
   Movie.find()
-    .populate(['owner', 'likes'])
     .sort({ createdAt: -1 })
     .then((movies) => {
       res.status(OK).send(movies);
@@ -28,11 +27,11 @@ const createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
-    nameRU,
-    nameEN,
+    trailerLink,
     thumbnail,
     movieId,
+    nameRU,
+    nameEN,
   } = req.body;
   Movie.create({
     country,
@@ -41,16 +40,15 @@ const createMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
+    thumbnail,
+    owner,
+    movieId,
     nameRU,
     nameEN,
-    thumbnail,
-    movieId,
-    owner,
   })
     .then((movie) => {
-      movie.populate(['owner'])
-        .then(() => res.status(CREATED).send(movie));
+      res.status(CREATED).send(movie);
     })
     .catch((e) => {
       if (e.name === 'ValidationError') {
