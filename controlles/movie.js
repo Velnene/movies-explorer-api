@@ -63,17 +63,17 @@ const deleteMovie = (req, res, next) => {
   Movie.findById(moviedId)
     .then((movie) => {
       if (!movie) {
-        throw new NotFoundError('Невалидный id карточки');
+        throw new NotFoundError('Невалидный id фильма');
       } else if (movie.owner.equals(req.user._id)) {
         Movie.findByIdAndRemove(moviedId)
           .then(() => {
-            res.status(200).send({ message: 'Карточка удалена' });
+            res.status(200).send({ message: 'Фильм удалена' });
           })
           .catch((err) => {
             next(err);
           });
       } else {
-        throw new ForbiddenError('Можно удалять только свои карточки');
+        throw new ForbiddenError('Можно удалять только свои фильмы');
       }
     })
     .catch(next);

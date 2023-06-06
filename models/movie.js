@@ -27,7 +27,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => urlValid.test(v),
-      message: 'Почта не валидна',
+      message: 'Ссылка не валидна',
     },
   },
   trailerLink: {
@@ -35,7 +35,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => urlValid.test(v),
-      message: 'Почта не валидна',
+      message: 'Ссылка не валидна',
     },
   },
   thumbnail: {
@@ -43,17 +43,15 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (v) => urlValid.test(v),
-      message: 'Почта не валидна',
+      message: 'Ссылка не валидна',
     },
   },
   owner: {
-    type: String,
-    // type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   movieId: {
-    type: String,
-    // type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   nameRU: {
