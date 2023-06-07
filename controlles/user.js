@@ -4,7 +4,7 @@ const User = require('../models/user');
 const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
-
+const { handleConflictError } = require('../errors/handleConflictError');
 const { generateToken } = require('../utils/token');
 const {
   OK,
@@ -56,11 +56,7 @@ const updateUser = (req, res, next) => {
     .then((user) => {
       res.status(OK).send(user);
     })
-    .catch((e) => {
-      if (e.name === 'ValidationError' || e.email === 'CastError') {
-        next(new BadRequestError('Поля неверно заполнены'));
-      } return next(e);
-    });
+    .catch((e) => handleConflictError(e, next));
 };
 
 const login = (req, res, next) => {

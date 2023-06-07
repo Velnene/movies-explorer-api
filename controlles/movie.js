@@ -10,7 +10,10 @@ const {
 } = require('../respons/responsStatus');
 
 const getMovies = (req, res, next) => {
-  Movie.find()
+  const { _id: owner } = req.user;
+
+  Movie.find({ owner })
+    .populate(['owner'])
     .sort({ createdAt: -1 })
     .then((movies) => {
       res.status(OK).send(movies);
