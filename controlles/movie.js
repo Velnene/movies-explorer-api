@@ -68,9 +68,9 @@ const deleteMovie = (req, res, next) => {
       if (!movie) {
         throw new NotFoundError('Невалидный id фильма');
       } else if (movie.owner.equals(req.user._id)) {
-        Movie.findByIdAndRemove(moviedId)
+        movie.remove(moviedId)
           .then(() => {
-            res.status(200).send({ message: 'Фильм удалена' });
+            res.status(200).send({ message: 'Фильм удален' });
           })
           .catch((err) => {
             next(err);

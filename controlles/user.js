@@ -3,7 +3,7 @@ const User = require('../models/user');
 
 const BadRequestError = require('../errors/BadRequestError');
 const ConflictError = require('../errors/ConflictError');
-const UnauthorizedError = require('../errors/UnauthorizedError');
+const NotFoundError = require('../errors/NotFoundError');
 const { handleConflictError } = require('../errors/handleConflictError');
 const { generateToken } = require('../utils/token');
 const {
@@ -43,8 +43,8 @@ const getCurrentUser = (req, res, next) => {
   User.findById(userId)
     .then((user) => res.status(OK).send(user))
     .catch((e) => {
-      if (res.status === 401) {
-        next(new UnauthorizedError('Не авторизован пользователь'));
+      if (res.status === 404) {
+        next(new NotFoundError('Не авторизован пользователь'));
       } return next(e);
     });
 };
