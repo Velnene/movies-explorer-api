@@ -1,8 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
-const BadRequestError = require('../errors/BadRequestError');
-const ConflictError = require('../errors/ConflictError');
 const NotFoundError = require('../errors/NotFoundError');
 const { handleConflictError } = require('../errors/handleConflictError');
 const { generateToken } = require('../utils/token');
@@ -15,16 +13,7 @@ const createUser = (req, res, next) => {
   const {
     name, email, password,
   } = req.body;
-  if (!email || !password) {
-    throw new BadRequestError('Поля неверно заполнены');
-  }
-  return User.findOne({ email })
-    .then((user) => {
-      if (user) {
-        throw new ConflictError('Email уже зарегистрирован');
-      }
-      return bcrypt.hash(password, 10);
-    })
+  bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name, email, password: hash,
     }))
@@ -35,7 +24,7 @@ const createUser = (req, res, next) => {
         email: user.email,
       });
     })
-    .catch(next);
+    .catch((e) => handleConflictError(e, next));
 };
 
 const getCurrentUser = (req, res, next) => {

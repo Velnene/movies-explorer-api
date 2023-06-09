@@ -1,7 +1,13 @@
+const InternalServer = require('../respons/responsStatus');
+
 const errorHandler = (err, req, res, next) => {
-  const status = err.statusCode || 500;
-  const message = err.message || 'На сервере произошла ошибка.';
-  res.status(status).send({ message });
+  const { status = InternalServer, message } = err;
+
+  res.status(status).send({
+    message: status === InternalServer
+      ? 'На сервере произошла ошибка.'
+      : message,
+  });
   next();
 };
 

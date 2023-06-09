@@ -47,13 +47,13 @@ const updateValidate = celebrate({
     email: Joi.string().required().email()
       .messages({
         'string.empty': 'Поле email должно быть заполнено',
-        'string.email': 'Поле должно быть валидным email',
+        'string.email': 'Поле должно быть валидными email',
       }),
   }),
 });
 
 const idValidate = celebrate({
-  params: Joi.object().keys({ userId: Joi.string().alphanum().length(24) }),
+  params: Joi.object().keys({ userId: Joi.string().required().hex().length(24) }),
 });
 
 module.exports = {
