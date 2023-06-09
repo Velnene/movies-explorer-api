@@ -10,13 +10,9 @@ const {
 } = require('../respons/responsStatus');
 
 const createUser = (req, res, next) => {
-  const {
-    name, email, password,
-  } = req.body;
+  const { name, email, password } = req.body;
   bcrypt.hash(password, 10)
-    .then((hash) => User.create({
-      name, email, password: hash,
-    }))
+    .then((hash) => User.create({ name, email, password: hash }))
     .then((user) => {
       res.status(CREATED).send({
         name: user.name,
@@ -24,7 +20,7 @@ const createUser = (req, res, next) => {
         email: user.email,
       });
     })
-    .catch((e) => handleConflictError(e, next));
+    .catch((err) => handleConflictError(err, next));
 };
 
 const getCurrentUser = (req, res, next) => {
